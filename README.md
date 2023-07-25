@@ -1,12 +1,12 @@
 # osl-mattermost
 
-TODO: Enter the cookbook description here.
+Deploy and manage Mattermost instances
 
 ## Requirements
 
 ### Platforms
 
-- CentOS 7+
+- AlmaLinux 8+
 
 ### Cookbooks
 
