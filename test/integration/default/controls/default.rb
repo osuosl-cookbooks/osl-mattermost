@@ -67,8 +67,10 @@ control 'default' do
     it { should exist }
   end
 
-  describe package 'tar' do
-    it { should be_installed }
+  %w(rsync tar).each do |p|
+    describe package p do
+      it { should be_installed }
+    end
   end
 
   describe file '/usr/local/bin/mmctl' do
@@ -106,5 +108,20 @@ control 'default' do
     its('content') { should match /^MATTERMOST_IMAGE_TAG=7.8$/ }
     its('content') { should match /^DOMAIN=mm.example.org$/ }
     its('content') { should match /^TZ=UTC$/ }
+  end
+
+  describe file '/usr/local/libexec/mattermost-backup.sh' do
+    it { should exist }
+    its('mode') { should cmp '0755' }
+  end
+
+  describe command '/usr/local/libexec/mattermost-backup.sh' do
+    its('exit_status') { should eq 0 }
+    its('stdout') { should eq '' }
+    its('stderr') { should eq '' }
+  end
+
+  describe cron 'root' do
+    it { should have_entry '@daily /usr/local/libexec/mattermost-backup.sh' }
   end
 end

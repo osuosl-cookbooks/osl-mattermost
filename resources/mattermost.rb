@@ -19,13 +19,13 @@ action :create do
   acme_selfsigned new_resource.domain do
     crt '/etc/pki/tls/mattermost.crt'
     key '/etc/pki/tls/mattermost.key'
-    notifies :reload, 'nginx_service[osuosl]'
+    notifies :restart, 'nginx_service[osuosl]', :immediately
   end
 
   cookbook_file '/etc/nginx/conf.d/mattermost.conf' do
     source 'nginx.conf.erb'
     cookbook 'osl-mattermost'
-    notifies :reload, 'nginx_service[osuosl]'
+    notifies :restart, 'nginx_service[osuosl]', :immediately
   end
 
   directory '/var/www/acme' do
@@ -36,10 +36,10 @@ action :create do
     crt '/etc/pki/tls/mattermost.crt'
     key '/etc/pki/tls/mattermost.key'
     wwwroot '/var/www/acme'
-    notifies :reload, 'nginx_service[osuosl]'
+    notifies :restart, 'nginx_service[osuosl]', :immediately
   end
 
-  package 'tar'
+  package %w(rsync tar)
 
   ark 'mmctl' do
     url "https://github.com/mattermost/mmctl/releases/download/v#{new_resource.mmctl_version}/linux_amd64.tar"
@@ -91,6 +91,16 @@ action :create do
     )
     notifies :rebuild, 'osl_dockercompose[mattermost]'
     notifies :restart, 'osl_dockercompose[mattermost]'
+  end
+
+  cookbook_file '/usr/local/libexec/mattermost-backup.sh' do
+    cookbook 'osl-mattermost'
+    mode '0755'
+  end
+
+  cron 'mattermost-backup' do
+    time :daily
+    command '/usr/local/libexec/mattermost-backup.sh'
   end
 
   osl_dockercompose 'mattermost' do
