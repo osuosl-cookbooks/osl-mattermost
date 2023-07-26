@@ -28,7 +28,7 @@ describe 'mattermost_test::default' do
     )
   end
 
-  it { expect(chef_run.acme_selfsigned('mm.example.org')).to notify('nginx_service[osuosl]').to(:reload) }
+  it { expect(chef_run.acme_selfsigned('mm.example.org')).to notify('nginx_service[osuosl]').to(:restart).immediately }
 
   it do
     is_expected.to create_cookbook_file('/etc/nginx/conf.d/mattermost.conf').with(
@@ -37,7 +37,11 @@ describe 'mattermost_test::default' do
     )
   end
 
-  it { expect(chef_run.cookbook_file('/etc/nginx/conf.d/mattermost.conf')).to notify('nginx_service[osuosl]').to(:reload) }
+  it do
+    expect(chef_run.cookbook_file('/etc/nginx/conf.d/mattermost.conf')).to \
+      notify('nginx_service[osuosl]').to(:restart).immediately
+  end
+
   it { is_expected.to create_directory('/var/www/acme').with(recursive: true) }
 
   it do
@@ -48,8 +52,12 @@ describe 'mattermost_test::default' do
     )
   end
 
-  it { expect(chef_run.acme_certificate('mm.example.org')).to notify('nginx_service[osuosl]').to(:reload) }
-  it { is_expected.to install_package 'tar' }
+  it do
+    expect(chef_run.acme_certificate('mm.example.org')).to \
+      notify('nginx_service[osuosl]').to(:restart).immediately
+  end
+
+  it { is_expected.to install_package %w(rsync tar) }
 
   it do
     is_expected.to install_ark('mmctl').with(
@@ -107,6 +115,20 @@ describe 'mattermost_test::default' do
         timezone: 'UTC',
         version: '7.8',
       }
+    )
+  end
+
+  it do
+    is_expected.to create_cookbook_file('/usr/local/libexec/mattermost-backup.sh').with(
+      cookbook: 'osl-mattermost',
+      mode: '0755'
+    )
+  end
+
+  it do
+    is_expected.to create_cron('mattermost-backup').with(
+      time: :daily,
+      command: '/usr/local/libexec/mattermost-backup.sh'
     )
   end
 
