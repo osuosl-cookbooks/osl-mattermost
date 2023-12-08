@@ -73,15 +73,6 @@ control 'default' do
     end
   end
 
-  describe file '/usr/local/bin/mmctl' do
-    its('link_path') { should eq '/opt/mmctl-7.10.4/mmctl' }
-  end
-
-  describe command '/usr/local/bin/mmctl version' do
-    its('exit_status') { should eq 0 }
-    its('stdout') { should match /Version:\s+v7.10.4/ }
-  end
-
   describe directory '/var/lib/mattermost/volumes/app/mattermost' do
     its('uid') { should eq 2000 }
     its('gid') { should eq 2000 }

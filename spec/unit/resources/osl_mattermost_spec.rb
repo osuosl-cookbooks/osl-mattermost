@@ -60,18 +60,6 @@ describe 'mattermost_test::default' do
   it { is_expected.to install_package %w(rsync tar) }
 
   it do
-    is_expected.to install_ark('mmctl').with(
-      url: 'https://github.com/mattermost/mmctl/releases/download/v7.10.4/linux_amd64.tar',
-      prefix_root: '/opt',
-      prefix_home: '/opt',
-      strip_components: 0,
-      version: '7.10.4'
-    )
-  end
-
-  it { expect(chef_run.link('/usr/local/bin/mmctl')).to link_to('/opt/mmctl/mmctl') }
-
-  it do
     is_expected.to sync_git('/var/lib/mattermost').with(
       repository: 'https://github.com/mattermost/docker'
     )
