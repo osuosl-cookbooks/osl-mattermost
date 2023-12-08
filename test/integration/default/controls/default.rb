@@ -38,7 +38,7 @@ control 'default' do
 
   describe docker_container 'mattermost-mattermost-1' do
     it { should be_running }
-    its('image') { should eq 'mattermost/mattermost-team-edition:7.8' }
+    its('image') { should eq 'mattermost/mattermost-team-edition:8.1' }
   end
 
   describe docker_container 'mattermost-postgres-1' do
@@ -105,7 +105,7 @@ control 'default' do
   describe file '/var/lib/mattermost/.env' do
     it { should exist }
     its('content') { should match /^MATTERMOST_IMAGE=mattermost-team-edition$/ }
-    its('content') { should match /^MATTERMOST_IMAGE_TAG=7.8$/ }
+    its('content') { should match /^MATTERMOST_IMAGE_TAG=8.1$/ }
     its('content') { should match /^DOMAIN=mm.example.org$/ }
     its('content') { should match /^TZ=UTC$/ }
   end

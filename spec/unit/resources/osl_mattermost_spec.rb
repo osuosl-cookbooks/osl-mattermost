@@ -113,7 +113,7 @@ describe 'mattermost_test::default' do
         edition: 'team',
         domain: 'mm.example.org',
         timezone: 'UTC',
-        version: '7.8',
+        version: '8.1',
       }
     )
   end

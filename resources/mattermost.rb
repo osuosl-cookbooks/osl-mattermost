@@ -8,7 +8,7 @@ property :domain, String, name_property: true
 property :edition, String, default: 'team'
 property :mmctl_version, String, default: '7.10.4'
 property :timezone, String, default: 'UTC'
-property :version, String, default: '7.8'
+property :version, String, default: '8.1'
 
 action :create do
   include_recipe 'osl-git'
