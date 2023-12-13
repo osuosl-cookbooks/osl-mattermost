@@ -6,6 +6,7 @@ default_action :create
 
 property :domain, String, name_property: true
 property :edition, String, default: 'team'
+property :mmctl_version, String, default: '8.1.7'
 property :timezone, String, default: 'UTC'
 property :version, String, default: '8.1'
 
@@ -39,6 +40,21 @@ action :create do
   end
 
   package %w(rsync tar)
+
+  ark 'mmctl' do
+    action :cherry_pick
+    path 'mattermost/bin/mmctl'
+    creates '/opt/mattermost/bin/mmctl'
+    url "https://releases.mattermost.com/#{new_resource.mmctl_version}/mattermost-#{new_resource.mmctl_version}-linux-amd64.tar.gz"
+    prefix_root '/opt'
+    prefix_home '/opt'
+    strip_components 0
+    version new_resource.mmctl_version
+  end
+
+  link '/usr/local/bin/mmctl' do
+    to '/opt/mmctl/mmctl'
+  end
 
   git '/var/lib/mattermost' do
     repository 'https://github.com/mattermost/docker'
