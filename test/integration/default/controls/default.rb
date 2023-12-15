@@ -74,7 +74,7 @@ control 'default' do
   end
 
   describe file '/usr/local/bin/mmctl' do
-    its('link_path') { should eq '/opt/mmctl/mmctl' }
+    its('link_path') { should eq '/opt/mattermost/bin/mmctl' }
   end
 
   describe command '/usr/local/bin/mmctl version' do

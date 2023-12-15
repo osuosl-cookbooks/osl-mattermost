@@ -42,18 +42,18 @@ action :create do
   package %w(rsync tar)
 
   ark 'mmctl' do
-    action :cherry_pick
-    path '/opt/mmctl/'
-    creates 'mattermost/bin/mmctl'
     url "https://releases.mattermost.com/#{new_resource.mmctl_version}/mattermost-#{new_resource.mmctl_version}-linux-amd64.tar.gz"
+    path 'mattermost/bin'
+    creates 'mattermost/bin/mmctl'
     prefix_root '/opt'
     prefix_home '/opt'
     strip_components 0
     version new_resource.mmctl_version
+    action :cherry_pick
   end
 
   link '/usr/local/bin/mmctl' do
-    to '/opt/mmctl/mmctl'
+    to '/opt/mattermost/bin/mmctl'
   end
 
   git '/var/lib/mattermost' do
