@@ -43,12 +43,8 @@ action :create do
 
   ark 'mmctl' do
     url "https://releases.mattermost.com/#{new_resource.mmctl_version}/mattermost-#{new_resource.mmctl_version}-linux-amd64.tar.gz"
-    path 'mattermost/bin'
-    creates 'mattermost/bin/mmctl'
-    prefix_root '/opt'
-    prefix_home '/opt'
-    strip_components 0
-    version new_resource.mmctl_version
+    path '/opt/mattermost/bin'
+    creates '/opt/mattermost/bin/mmctl'
     action :cherry_pick
   end
 
