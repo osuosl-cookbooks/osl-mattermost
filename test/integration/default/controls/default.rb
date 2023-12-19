@@ -38,7 +38,7 @@ control 'default' do
 
   describe docker_container 'mattermost-mattermost-1' do
     it { should be_running }
-    its('image') { should eq 'mattermost/mattermost-team-edition:7.8' }
+    its('image') { should eq 'mattermost/mattermost-team-edition:8.1' }
   end
 
   describe docker_container 'mattermost-postgres-1' do
@@ -74,12 +74,12 @@ control 'default' do
   end
 
   describe file '/usr/local/bin/mmctl' do
-    its('link_path') { should eq '/opt/mmctl-7.10.4/mmctl' }
+    its('link_path') { should eq '/opt/mattermost/bin/mmctl' }
   end
 
   describe command '/usr/local/bin/mmctl version' do
     its('exit_status') { should eq 0 }
-    its('stdout') { should match /Version:\s+v7.10.4/ }
+    its('stdout') { should match /Version:\s+8.1.7/ }
   end
 
   describe directory '/var/lib/mattermost/volumes/app/mattermost' do
@@ -105,7 +105,7 @@ control 'default' do
   describe file '/var/lib/mattermost/.env' do
     it { should exist }
     its('content') { should match /^MATTERMOST_IMAGE=mattermost-team-edition$/ }
-    its('content') { should match /^MATTERMOST_IMAGE_TAG=7.8$/ }
+    its('content') { should match /^MATTERMOST_IMAGE_TAG=8.1$/ }
     its('content') { should match /^DOMAIN=mm.example.org$/ }
     its('content') { should match /^TZ=UTC$/ }
   end

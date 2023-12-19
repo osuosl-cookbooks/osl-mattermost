@@ -60,16 +60,14 @@ describe 'mattermost_test::default' do
   it { is_expected.to install_package %w(rsync tar) }
 
   it do
-    is_expected.to install_ark('mmctl').with(
-      url: 'https://github.com/mattermost/mmctl/releases/download/v7.10.4/linux_amd64.tar',
-      prefix_root: '/opt',
-      prefix_home: '/opt',
-      strip_components: 0,
-      version: '7.10.4'
+    is_expected.to cherry_pick_ark('mmctl').with(
+      url: 'https://releases.mattermost.com/8.1.7/mattermost-8.1.7-linux-amd64.tar.gz',
+      path: '/opt/mattermost',
+      creates: 'mattermost/bin/mmctl'
     )
   end
 
-  it { expect(chef_run.link('/usr/local/bin/mmctl')).to link_to('/opt/mmctl/mmctl') }
+  it { expect(chef_run.link('/usr/local/bin/mmctl')).to link_to('/opt/mattermost/bin/mmctl') }
 
   it do
     is_expected.to sync_git('/var/lib/mattermost').with(
@@ -113,7 +111,7 @@ describe 'mattermost_test::default' do
         edition: 'team',
         domain: 'mm.example.org',
         timezone: 'UTC',
-        version: '7.8',
+        version: '8.1',
       }
     )
   end
