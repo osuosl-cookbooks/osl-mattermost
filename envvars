@@ -1,0 +1,4 @@
+cookbook=osl-mattermost
+version=1.0.1
+envs=~
+pr_link=https://github.com/osuosl-cookbooks/osl-mattermost/pull/2
