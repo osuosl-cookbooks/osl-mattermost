@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the osl-mattermost cookbook.
 
+1.1.2 (2024-02-02)
+------------------
+- Fix automatic upgrades
+
 1.1.1 (2024-02-02)
 ------------------
 - Bump to 8.1.9 for latest security fixes
