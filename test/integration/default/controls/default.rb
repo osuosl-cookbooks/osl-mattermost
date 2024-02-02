@@ -79,7 +79,7 @@ control 'default' do
 
   describe command '/usr/local/bin/mmctl version' do
     its('exit_status') { should eq 0 }
-    its('stdout') { should match /Version:\s+8.1.7/ }
+    its('stdout') { should match /Version:\s+8.1.9/ }
   end
 
   describe directory '/var/lib/mattermost/volumes/app/mattermost' do
