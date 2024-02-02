@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the osl-mattermost cookbook.
 
+1.1.1 (2024-02-02)
+------------------
+- Bump to 8.1.9 for latest security fixes
+
 1.1.0 (2023-12-19)
 ------------------
 - Upgrade Mattermost to v8.1 ESR
