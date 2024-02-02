@@ -61,7 +61,7 @@ describe 'mattermost_test::default' do
 
   it do
     is_expected.to cherry_pick_ark('mmctl').with(
-      url: 'https://releases.mattermost.com/8.1.7/mattermost-8.1.7-linux-amd64.tar.gz',
+      url: 'https://releases.mattermost.com/8.1.9/mattermost-8.1.9-linux-amd64.tar.gz',
       path: '/opt/mattermost',
       creates: 'mattermost/bin/mmctl'
     )
