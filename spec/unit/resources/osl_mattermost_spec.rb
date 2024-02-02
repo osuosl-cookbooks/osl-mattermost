@@ -103,6 +103,16 @@ describe 'mattermost_test::default' do
     end
   end
 
+  it { is_expected.to pull_docker_image('mattermost/mattermost-team-edition').with(tag: '8.1') }
+  it { is_expected.to pull_docker_image('postgres').with(tag: '13-alpine') }
+  %w(
+    mattermost/mattermost-team-edition
+    postgres
+  ).each do |i|
+    it { expect(chef_run.docker_image(i)).to notify('osl_dockercompose[mattermost]').to(:rebuild) }
+    it { expect(chef_run.docker_image(i)).to notify('osl_dockercompose[mattermost]').to(:restart) }
+  end
+
   it do
     is_expected.to create_template('/var/lib/mattermost/.env').with(
       source: 'env.erb',
