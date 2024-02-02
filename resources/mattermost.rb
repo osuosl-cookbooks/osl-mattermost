@@ -92,6 +92,18 @@ action :create do
     notifies :restart, 'osl_dockercompose[mattermost]'
   end
 
+  docker_image 'mattermost/mattermost-team-edition' do
+    tag new_resource.version
+    notifies :rebuild, 'osl_dockercompose[mattermost]'
+    notifies :restart, 'osl_dockercompose[mattermost]'
+  end
+
+  docker_image 'postgres' do
+    tag '13-alpine'
+    notifies :rebuild, 'osl_dockercompose[mattermost]'
+    notifies :restart, 'osl_dockercompose[mattermost]'
+  end
+
   cookbook_file '/usr/local/libexec/mattermost-backup.sh' do
     cookbook 'osl-mattermost'
     mode '0755'
