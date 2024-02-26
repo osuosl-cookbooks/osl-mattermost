@@ -6,9 +6,9 @@ default_action :create
 
 property :domain, String, name_property: true
 property :edition, String, default: 'team'
-property :mmctl_version, String, default: '8.1.9'
+property :mmctl_version, String, default: '9.5.1'
 property :timezone, String, default: 'UTC'
-property :version, String, default: '8.1'
+property :version, String, default: '9.5'
 
 action :create do
   include_recipe 'osl-git'
