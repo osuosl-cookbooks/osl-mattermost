@@ -6,7 +6,7 @@ description       'Installs/Configures osl-mattermost'
 issues_url        'https://github.com/osuosl-cookbooks/osl-mattermost/issues'
 source_url        'https://github.com/osuosl-cookbooks/osl-mattermost'
 chef_version      '>= 17.0'
-version           '1.1.2'
+version           '1.1.3'
 
 depends           'ark'
 depends           'osl-acme'
