@@ -10,7 +10,6 @@ transport:
 
 provisioner:
   name: chef_infra
-  log_level: debug
   product_name: cinc
   product_version: '17'
   enforce_idempotency: true
