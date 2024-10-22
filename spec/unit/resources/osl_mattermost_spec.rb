@@ -1,7 +1,7 @@
 require_relative '../../spec_helper'
 
 describe 'mattermost_test::default' do
-  platform 'almalinux', '8'
+  platform 'almalinux'
   cached(:subject) { chef_run }
   step_into :osl_mattermost
 
