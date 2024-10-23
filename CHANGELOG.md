@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the osl-mattermost cookbook.
 
+1.1.4 (2024-10-23)
+------------------
+- Add AlmaLinux 9
+
 1.1.3 (2024-02-26)
 ------------------
 - Bump to 9.5
