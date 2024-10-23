@@ -15,3 +15,4 @@ depends           'osl-git'
 depends           'osl-nginx'
 
 supports          'almalinux', '~> 8.0'
+supports          'almalinux', '~> 9.0'

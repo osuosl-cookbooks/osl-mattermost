@@ -118,7 +118,14 @@ control 'default' do
   describe command '/usr/local/libexec/mattermost-backup.sh' do
     its('exit_status') { should eq 0 }
     its('stdout') { should eq '' }
-    its('stderr') { should eq '' }
+    # This comes from upstream files not managed by Chef.
+    if os.release.to_i >= 9
+      its('stderr') { should match %r{^time="[0-9]+-[0-9]+-[0-9]+T[0-9]+:[0-9]+:[0-9]+Z" level=warning msg="/var/lib/mattermost/docker-compose\.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"\n} }
+      its('stderr') { should match %r{^time="[0-9]+-[0-9]+-[0-9]+T[0-9]+:[0-9]+:[0-9]+Z" level=warning msg="/var/lib/mattermost/docker-compose\.without-nginx\.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"\n} }
+    else
+      its('stderr') { should match %r{^time="[0-9]+-[0-9]+-[0-9]+T[0-9]+:[0-9]+:[0-9]+Z" level=warning msg="/var/lib/mattermost/docker-compose\.yml: `version` is obsolete"\n} }
+      its('stderr') { should match %r{^time="[0-9]+-[0-9]+-[0-9]+T[0-9]+:[0-9]+:[0-9]+Z" level=warning msg="/var/lib/mattermost/docker-compose\.without-nginx\.yml: `version` is obsolete"\n} }
+    end
   end
 
   describe cron 'root' do
