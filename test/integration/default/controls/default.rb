@@ -118,7 +118,8 @@ control 'default' do
   describe command '/usr/local/libexec/mattermost-backup.sh' do
     its('exit_status') { should eq 0 }
     its('stdout') { should eq '' }
-    its('stderr') { should eq '' }
+    # This comes from upstream files not managed by Chef.
+    its('stderr') { should match /^time="[0-9]+-[0-9]+-[0-9]+T[0-9]+:[0-9]+:[0-9]+Z" level=warning msg="\/var\/lib\/mattermost\/docker-compose\.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"\n/ }
   end
 
   describe cron 'root' do
