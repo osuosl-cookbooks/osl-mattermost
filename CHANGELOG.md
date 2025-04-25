@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the osl-mattermost cookbook.
 
+1.1.6 (2025-04-25)
+------------------
+- Bump to 10.5 ESR
+
 1.1.5 (2025-04-25)
 ------------------
 - Bump to 9.11 ESR
