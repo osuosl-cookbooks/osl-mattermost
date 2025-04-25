@@ -38,7 +38,7 @@ control 'default' do
 
   describe docker_container 'mattermost-mattermost-1' do
     it { should be_running }
-    its('image') { should eq 'mattermost/mattermost-team-edition:9.5' }
+    its('image') { should eq 'mattermost/mattermost-team-edition:9.11' }
   end
 
   describe docker_container 'mattermost-postgres-1' do
@@ -79,7 +79,7 @@ control 'default' do
 
   describe command '/usr/local/bin/mmctl version' do
     its('exit_status') { should eq 0 }
-    its('stdout') { should match /Version:\s+9.5.1/ }
+    its('stdout') { should match /Version:\s+9.11.12/ }
   end
 
   describe directory '/var/lib/mattermost/volumes/app/mattermost' do
@@ -105,7 +105,7 @@ control 'default' do
   describe file '/var/lib/mattermost/.env' do
     it { should exist }
     its('content') { should match /^MATTERMOST_IMAGE=mattermost-team-edition$/ }
-    its('content') { should match /^MATTERMOST_IMAGE_TAG=9.5$/ }
+    its('content') { should match /^MATTERMOST_IMAGE_TAG=9.11$/ }
     its('content') { should match /^DOMAIN=mm.example.org$/ }
     its('content') { should match /^TZ=UTC$/ }
   end
@@ -118,14 +118,6 @@ control 'default' do
   describe command '/usr/local/libexec/mattermost-backup.sh' do
     its('exit_status') { should eq 0 }
     its('stdout') { should eq '' }
-    # This comes from upstream files not managed by Chef.
-    if os.release.to_i >= 9
-      its('stderr') { should match %r{^time="[0-9]+-[0-9]+-[0-9]+T[0-9]+:[0-9]+:[0-9]+Z" level=warning msg="/var/lib/mattermost/docker-compose\.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"\n} }
-      its('stderr') { should match %r{^time="[0-9]+-[0-9]+-[0-9]+T[0-9]+:[0-9]+:[0-9]+Z" level=warning msg="/var/lib/mattermost/docker-compose\.without-nginx\.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"\n} }
-    else
-      its('stderr') { should match %r{^time="[0-9]+-[0-9]+-[0-9]+T[0-9]+:[0-9]+:[0-9]+Z" level=warning msg="/var/lib/mattermost/docker-compose\.yml: `version` is obsolete"\n} }
-      its('stderr') { should match %r{^time="[0-9]+-[0-9]+-[0-9]+T[0-9]+:[0-9]+:[0-9]+Z" level=warning msg="/var/lib/mattermost/docker-compose\.without-nginx\.yml: `version` is obsolete"\n} }
-    end
   end
 
   describe cron 'root' do
