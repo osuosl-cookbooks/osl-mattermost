@@ -61,7 +61,7 @@ describe 'mattermost_test::default' do
 
   it do
     is_expected.to cherry_pick_ark('mmctl').with(
-      url: 'https://releases.mattermost.com/9.5.1/mattermost-9.5.1-linux-amd64.tar.gz',
+      url: 'https://releases.mattermost.com/9.11.12/mattermost-9.11.12-linux-amd64.tar.gz',
       path: '/opt/mattermost',
       creates: 'mattermost/bin/mmctl'
     )
@@ -103,7 +103,7 @@ describe 'mattermost_test::default' do
     end
   end
 
-  it { is_expected.to pull_docker_image('mattermost/mattermost-team-edition').with(tag: '9.5') }
+  it { is_expected.to pull_docker_image('mattermost/mattermost-team-edition').with(tag: '9.11') }
   it { is_expected.to pull_docker_image('postgres').with(tag: '13-alpine') }
   %w(
     mattermost/mattermost-team-edition
@@ -121,7 +121,7 @@ describe 'mattermost_test::default' do
         edition: 'team',
         domain: 'mm.example.org',
         timezone: 'UTC',
-        version: '9.5',
+        version: '9.11',
       }
     )
   end
