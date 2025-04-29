@@ -41,11 +41,6 @@ control 'default' do
     its('image') { should eq 'mattermost/mattermost-team-edition:10.5' }
   end
 
-  describe docker_container 'mattermost-postgres-1' do
-    it { should be_running }
-    its('image') { should eq 'postgres:13-alpine' }
-  end
-
   describe command 'echo | openssl s_client -connect 127.0.0.1:443 -servername mm.example.org 2>/dev/null' do
     its('stdout') { should match(/CN ?= ?mm.example.org/) }
     its('stdout') { should match(/CN ?= ?Pebble Intermediate CA/) }
@@ -108,19 +103,5 @@ control 'default' do
     its('content') { should match /^MATTERMOST_IMAGE_TAG=10.5$/ }
     its('content') { should match /^DOMAIN=mm.example.org$/ }
     its('content') { should match /^TZ=UTC$/ }
-  end
-
-  describe file '/usr/local/libexec/mattermost-backup.sh' do
-    it { should exist }
-    its('mode') { should cmp '0755' }
-  end
-
-  describe command '/usr/local/libexec/mattermost-backup.sh' do
-    its('exit_status') { should eq 0 }
-    its('stdout') { should eq '' }
-  end
-
-  describe cron 'root' do
-    it { should have_entry '@daily /usr/local/libexec/mattermost-backup.sh' }
   end
 end

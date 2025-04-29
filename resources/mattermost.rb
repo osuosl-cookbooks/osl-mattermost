@@ -4,6 +4,10 @@ unified_mode true
 
 default_action :create
 
+property :db_host, String, required: true
+property :db_name, String, required: true
+property :db_password, String, sensitive: true, required: true
+property :db_user, String, required: true
 property :domain, String, name_property: true
 property :edition, String, default: 'team'
 property :mmctl_version, String, default: '10.5.3'
@@ -52,15 +56,15 @@ action :create do
     to '/opt/mattermost/bin/mmctl'
   end
 
-  git '/var/lib/mattermost' do
-    repository 'https://github.com/mattermost/docker'
-    notifies :rebuild, 'osl_dockercompose[mattermost]'
-  end
-
   directory '/var/lib/mattermost/volumes/app/mattermost' do
     owner 2000
     group 2000
     recursive true
+  end
+
+  cookbook_file '/var/lib/mattermost/docker-compose.yml' do
+    cookbook 'osl-mattermost'
+    notifies :rebuild, 'osl_dockercompose[mattermost]'
   end
 
   %w(
@@ -83,11 +87,16 @@ action :create do
     source 'env.erb'
     cookbook 'osl-mattermost'
     variables(
+      db_host: new_resource.db_host,
+      db_user: new_resource.db_user,
+      db_password: new_resource.db_password,
+      db_name: new_resource.db_name,
       edition: new_resource.edition,
       domain: new_resource.domain,
       timezone: new_resource.timezone,
       version: new_resource.version
     )
+    sensitive true
     notifies :rebuild, 'osl_dockercompose[mattermost]'
     notifies :restart, 'osl_dockercompose[mattermost]'
   end
@@ -98,24 +107,7 @@ action :create do
     notifies :restart, 'osl_dockercompose[mattermost]'
   end
 
-  docker_image 'postgres' do
-    tag '13-alpine'
-    notifies :rebuild, 'osl_dockercompose[mattermost]'
-    notifies :restart, 'osl_dockercompose[mattermost]'
-  end
-
-  cookbook_file '/usr/local/libexec/mattermost-backup.sh' do
-    cookbook 'osl-mattermost'
-    mode '0755'
-  end
-
-  cron 'mattermost-backup' do
-    time :daily
-    command '/usr/local/libexec/mattermost-backup.sh'
-  end
-
   osl_dockercompose 'mattermost' do
     directory '/var/lib/mattermost'
-    config %w(docker-compose.yml docker-compose.without-nginx.yml)
   end
 end

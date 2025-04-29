@@ -1,0 +1,16 @@
+{
+  "id": "access",
+  "resources": [
+    {
+      "name": "mattermost",
+      "resource": "postgresql_access",
+      "attributes": {
+        "type": "host",
+        "database": "mattermost",
+        "user": "mattermost",
+        "address": "all",
+        "auth_method": "scram-sha-256"
+      }
+    }
+  ]
+}
