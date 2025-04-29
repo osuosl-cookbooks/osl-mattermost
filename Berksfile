@@ -11,6 +11,7 @@ cookbook 'osl-gpu', git: 'git@github.com:osuosl-cookbooks/osl-gpu', branch: 'mai
 cookbook 'osl-nginx', git: 'git@github.com:osuosl-cookbooks/osl-nginx'
 cookbook 'osl-nrpe', git: 'git@github.com:osuosl-cookbooks/osl-nrpe'
 cookbook 'osl-repos', git: 'git@github.com:osuosl-cookbooks/osl-repos'
+cookbook 'osl-postgresql', git: 'git@github.com:osuosl-cookbooks/osl-postgresql'
 cookbook 'osl-resources', git: 'git@github.com:osuosl-cookbooks/osl-resources', branch: 'main'
 cookbook 'osl-selinux', git: 'git@github.com:osuosl-cookbooks/osl-selinux'
 
