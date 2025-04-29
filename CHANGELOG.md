@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the osl-mattermost cookbook.
 
+2.0.0 (2025-04-29)
+------------------
+- Migrate to using external postgresql server
+
 1.1.6 (2025-04-25)
 ------------------
 - Bump to 10.5 ESR
