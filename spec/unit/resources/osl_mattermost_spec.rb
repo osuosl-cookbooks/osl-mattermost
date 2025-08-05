@@ -10,6 +10,7 @@ describe 'mattermost_test::default' do
       'id' => 'dhparam',
       'key' => 'dh param key'
     )
+    stub_command('iptables -C INPUT -j REJECT --reject-with icmp-host-prohibited 2>/dev/null').and_return(true)
   end
 
   %w(
