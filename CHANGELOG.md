@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the osl-mattermost cookbook.
 
+2.0.1 (2025-08-19)
+------------------
+- Almalinux 10 Support
+
 2.0.0 (2025-04-29)
 ------------------
 - Migrate to using external postgresql server
