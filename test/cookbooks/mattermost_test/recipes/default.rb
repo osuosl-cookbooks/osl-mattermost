@@ -1,6 +1,16 @@
-osl_postgresql_test 'mattermost' do
-  username 'mattermost'
-  password 'mattermost'
+osl_postgresql_server 'mattermost' do
+  version '16'
+  access 'access'
+  osl_only false
+end
+
+postgresql_user 'mattermost' do
+  unencrypted_password 'mattermost'
+  login true
+end
+
+postgresql_database 'mattermost' do
+  owner 'mattermost'
 end
 
 osl_mattermost 'mm.example.org' do
