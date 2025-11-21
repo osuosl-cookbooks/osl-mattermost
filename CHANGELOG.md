@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the osl-mattermost cookbook.
 
+2.0.2 (2025-11-21)
+------------------
+- Remove redundant :restart notifications for osl_dockercompose
+
 2.0.1 (2025-08-19)
 ------------------
 - Almalinux 10 Support
