@@ -105,7 +105,6 @@ describe 'mattermost_test::default' do
 
   it { is_expected.to pull_docker_image('mattermost/mattermost-team-edition').with(tag: '10.5') }
   it { expect(chef_run.docker_image('mattermost/mattermost-team-edition')).to notify('osl_dockercompose[mattermost]').to(:rebuild) }
-  it { expect(chef_run.docker_image('mattermost/mattermost-team-edition')).to notify('osl_dockercompose[mattermost]').to(:restart) }
 
   it do
     is_expected.to create_template('/var/lib/mattermost/.env').with(
@@ -126,5 +125,4 @@ describe 'mattermost_test::default' do
   end
 
   it { expect(chef_run.template('/var/lib/mattermost/.env')).to notify('osl_dockercompose[mattermost]').to(:rebuild) }
-  it { expect(chef_run.template('/var/lib/mattermost/.env')).to notify('osl_dockercompose[mattermost]').to(:restart) }
 end

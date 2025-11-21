@@ -98,13 +98,11 @@ action :create do
     )
     sensitive true
     notifies :rebuild, 'osl_dockercompose[mattermost]'
-    notifies :restart, 'osl_dockercompose[mattermost]'
   end
 
   docker_image 'mattermost/mattermost-team-edition' do
     tag new_resource.version
     notifies :rebuild, 'osl_dockercompose[mattermost]'
-    notifies :restart, 'osl_dockercompose[mattermost]'
   end
 
   osl_dockercompose 'mattermost' do
