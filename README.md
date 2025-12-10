@@ -6,15 +6,62 @@ Deploy and manage Mattermost instances
 
 ### Platforms
 
-- AlmaLinux 8+
+- AlmaLinux 8/9/10
 
 ### Cookbooks
+
+- ark
+- osl-acme
+- osl-docker
+- osl-git
+- osl-nginx
 
 ## Attributes
 
 ## Resources
 
+### `osl_mattermost`
+
+Creates a Mattermost deployment backed by an external PostgreSQL database, using Docker Compose and nginx with ACME-provided TLS certificates.
+
+**Properties**
+
+- `domain` (name_property, String): FQDN for the site and TLS certs.
+- `db_host` (String, required): PostgreSQL host.
+- `db_user` (String, required): PostgreSQL user.
+- `db_password` (String, required, sensitive): PostgreSQL password.
+- `db_name` (String, required): PostgreSQL database name.
+- `edition` (String, default: `team`): Mattermost edition (`team` or `enterprise`).
+- `version` (String, default: `10.11`): Mattermost image tag.
+- `mmctl_version` (String, default: `10.11.8`): `mmctl` CLI version to install.
+- `timezone` (String, default: `UTC`): Container timezone.
+
 ## Recipes
+
+- `default` — empty placeholder; use the `osl_mattermost` resource instead.
+
+## Usage
+
+```ruby
+osl_mattermost 'chat.example.org' do
+    db_host 'db.example.org'
+    db_user 'mattermost'
+    db_password 'supersecret'
+    db_name 'mattermost'
+    edition 'team'
+    version '10.11'
+    mmctl_version '10.11.8'
+    timezone 'America/Los_Angeles'
+end
+```
+
+The resource:
+
+- Requests a Let's Encrypt certificate via `osl-acme` and configures nginx as a reverse proxy.
+- Drops Docker Compose config and `.env` variables under `/var/lib/mattermost` and rebuilds the stack when they change.
+- Installs `mmctl` to `/usr/local/bin`.
+
+Ensure the referenced PostgreSQL database, user, and credentials already exist before convergence.
 
 ## Contributing
 
