@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the osl-mattermost cookbook.
 
+2.0.3 (2025-12-10)
+------------------
+- Improve Mattermost resource documentation
+
 2.0.2 (2025-11-21)
 ------------------
 - Remove redundant :restart notifications for osl_dockercompose
