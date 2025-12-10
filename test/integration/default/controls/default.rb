@@ -38,7 +38,7 @@ control 'default' do
 
   describe docker_container 'mattermost-mattermost-1' do
     it { should be_running }
-    its('image') { should eq 'mattermost/mattermost-team-edition:10.5' }
+    its('image') { should eq 'mattermost/mattermost-team-edition:10.11' }
   end
 
   describe command 'echo | openssl s_client -connect 127.0.0.1:443 -servername mm.example.org 2>/dev/null' do
@@ -74,7 +74,7 @@ control 'default' do
 
   describe command '/usr/local/bin/mmctl version' do
     its('exit_status') { should eq 0 }
-    its('stdout') { should match /Version:\s+10.5.3/ }
+    its('stdout') { should match /Version:\s+10.11.8/ }
   end
 
   describe directory '/var/lib/mattermost/volumes/app/mattermost' do
@@ -100,7 +100,7 @@ control 'default' do
   describe file '/var/lib/mattermost/.env' do
     it { should exist }
     its('content') { should match /^MATTERMOST_IMAGE=mattermost-team-edition$/ }
-    its('content') { should match /^MATTERMOST_IMAGE_TAG=10.5$/ }
+    its('content') { should match /^MATTERMOST_IMAGE_TAG=10.11$/ }
     its('content') { should match /^DOMAIN=mm.example.org$/ }
     its('content') { should match /^TZ=UTC$/ }
   end

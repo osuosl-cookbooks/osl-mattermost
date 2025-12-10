@@ -10,9 +10,9 @@ property :db_password, String, sensitive: true, required: true
 property :db_user, String, required: true
 property :domain, String, name_property: true
 property :edition, String, default: 'team'
-property :mmctl_version, String, default: '10.5.3'
+property :mmctl_version, String, default: '10.11.8'
 property :timezone, String, default: 'UTC'
-property :version, String, default: '10.5'
+property :version, String, default: '10.11'
 
 action :create do
   include_recipe 'osl-git'

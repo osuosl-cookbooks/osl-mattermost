@@ -62,7 +62,7 @@ describe 'mattermost_test::default' do
 
   it do
     is_expected.to cherry_pick_ark('mmctl').with(
-      url: 'https://releases.mattermost.com/10.5.3/mattermost-10.5.3-linux-amd64.tar.gz',
+      url: 'https://releases.mattermost.com/10.11.8/mattermost-10.11.8-linux-amd64.tar.gz',
       path: '/opt/mattermost',
       creates: 'mattermost/bin/mmctl'
     )
@@ -103,7 +103,7 @@ describe 'mattermost_test::default' do
     end
   end
 
-  it { is_expected.to pull_docker_image('mattermost/mattermost-team-edition').with(tag: '10.5') }
+  it { is_expected.to pull_docker_image('mattermost/mattermost-team-edition').with(tag: '10.11') }
   it { expect(chef_run.docker_image('mattermost/mattermost-team-edition')).to notify('osl_dockercompose[mattermost]').to(:rebuild) }
 
   it do
@@ -119,7 +119,7 @@ describe 'mattermost_test::default' do
         edition: 'team',
         domain: 'mm.example.org',
         timezone: 'UTC',
-        version: '10.5',
+        version: '10.11',
       }
     )
   end
