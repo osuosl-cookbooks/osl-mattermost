@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the osl-mattermost cookbook.
 
+2.0.4 (2026-11-13)
+------------------
+- chef 19 update
+
 2.0.3 (2025-12-10)
 ------------------
 - Improve Mattermost resource documentation
